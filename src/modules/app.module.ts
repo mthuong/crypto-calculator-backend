@@ -1,17 +1,14 @@
 import { environment } from '@env/environment';
 import { DynamicModule, ForwardReference, Module, Type } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 
-type ImportModule =
-  | Type<any>
-  | DynamicModule
-  | Promise<DynamicModule>
-  | ForwardReference;
+type ImportModule = Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference;
 const serveStaticModule: ImportModule[] = environment.aws.isEnabled
   ? []
   : [
@@ -21,7 +18,7 @@ const serveStaticModule: ImportModule[] = environment.aws.isEnabled
     ];
 
 @Module({
-  imports: serveStaticModule.concat([AuthModule, UsersModule]),
+  imports: serveStaticModule.concat([AuthModule, UsersModule, TypeOrmModule.forRoot()]),
   controllers: [AppController],
   providers: [AppService],
 })

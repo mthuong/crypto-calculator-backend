@@ -6,8 +6,9 @@ Calculate your savings investment
 
 ## Repositories
 
-[Backend](https://github.com/mthuong)
-[Front end](https://github.com/mthuong)
+[🖥 Backend](https://github.com/mthuong/crypto-calculator-backend)
+
+[🦠 Front end](https://github.com/mthuong)
 
 ## Installation
 
