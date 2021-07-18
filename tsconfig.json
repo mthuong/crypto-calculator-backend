@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "paths": {
+      "@modules/*": ["./src/modules/*"],
+      "@modules/": ["./src/modules"],
+      "@env/*": ["./src/env/*"],
+      "@env": ["./src/env"],
+      "@testing/*": ["./src/testing/*"],
+      "@testing": ["./src/testing"],
+      "@test/*": ["./src/test/*"],
+      "@test": ["./src/test"],
+    },
+  },
+  "exclude": ["node_modules", "dist", "dangerfile.ts"],
+  "typeRoots": ["./node_modules/@types", "src/types"],
+}
