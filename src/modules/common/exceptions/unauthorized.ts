@@ -32,18 +32,27 @@ export class LoginFailedException extends UnauthorizedException {
 
 export class EmailVerificationTokenExpiredException extends UnauthorizedException {
   constructor() {
-    super('The email verification token is expired', 'email_verification_token_expired');
+    super(
+      'The email verification token is expired',
+      'email_verification_token_expired',
+    );
   }
 }
 
 export class PasswordRecoveryTokenExpiredException extends UnauthorizedException {
   constructor() {
-    super('The password recovery token is expired', 'password_recovery_token_expired');
+    super(
+      'The password recovery token is expired',
+      'password_recovery_token_expired',
+    );
   }
 }
 export class AuthorizedOwnerFailedException extends ForbiddenException {
   constructor(itemName) {
-    super(`This user is not the owner of this ${itemName}`, 'unauthorized_exception');
+    super(
+      `This user is not the owner of this ${itemName}`,
+      'unauthorized_exception',
+    );
   }
 }
 
@@ -55,6 +64,9 @@ export class FilePermissionException extends ForbiddenException {
 
 export class MobileVerificationException extends UnauthorizedException {
   constructor() {
-    super('The mobile verification code is invalid', 'mobile_verification_code_invalid');
+    super(
+      'The mobile verification code is invalid',
+      'mobile_verification_code_invalid',
+    );
   }
 }

@@ -75,7 +75,12 @@ export const safeKey = (() => {
  * @param page - current page
  * @param totalPage - number of pages
  */
-export function generatePaginationLinks(baseUrl: string, page: number, perPage: number, totalPage: number): string {
+export function generatePaginationLinks(
+  baseUrl: string,
+  page: number,
+  perPage: number,
+  totalPage: number,
+): string {
   const items = [];
 
   if (page > 1) {
@@ -91,7 +96,9 @@ export function generatePaginationLinks(baseUrl: string, page: number, perPage: 
 
   if (page < totalPage) {
     items.push({
-      link: `${baseUrl}?perPage=${perPage}&page=${parseInt(page.toString(), 10) + 1}`,
+      link: `${baseUrl}?perPage=${perPage}&page=${
+        parseInt(page.toString(), 10) + 1
+      }`,
       rel: 'next',
     });
     items.push({
@@ -103,7 +110,11 @@ export function generatePaginationLinks(baseUrl: string, page: number, perPage: 
   return items.map((item) => `<${item.link}>; rel="${item.rel}"`).join(', ');
 }
 
-export function generatePaginationLinksWithQuery(baseUrl: string, query: any, totalPage: number): string {
+export function generatePaginationLinksWithQuery(
+  baseUrl: string,
+  query: any,
+  totalPage: number,
+): string {
   const items = [];
   const { page = 1 as number, perPage = 10 as number } = query;
 
@@ -162,7 +173,9 @@ export const addCustomProperties = (
     const aliases = [baseAlias, ...property.split('.')];
 
     for (let i = 1; i < aliases.length; i += 1) {
-      const propertyWithTableAlias = `${aliases[safeKey(i - 1)]}.${aliases[safeKey(i)]}`;
+      const propertyWithTableAlias = `${aliases[safeKey(i - 1)]}.${
+        aliases[safeKey(i)]
+      }`;
 
       if (i < aliases.length - 1) {
         joinProperties.push(propertyWithTableAlias);
@@ -176,7 +189,10 @@ export const addCustomProperties = (
   selectProperties = Array.from(new Set(selectProperties));
 
   for (const property of joinProperties) {
-    queryBuilder = queryBuilder.leftJoin(property, property.substring(property.lastIndexOf('.') + 1));
+    queryBuilder = queryBuilder.leftJoin(
+      property,
+      property.substring(property.lastIndexOf('.') + 1),
+    );
   }
 
   for (const property of selectProperties) {

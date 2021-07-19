@@ -16,10 +16,17 @@ export const camelCaseToSnakeCase = (key: string) => {
  * @param obj - The object you want to filter
  * @param isStrict - Exclude string of empty
  */
-export const pickNotEmpty = (obj: Record<string, any> | string | number | boolean, isStrict: boolean = false) => {
+export const pickNotEmpty = (
+  obj: Record<string, any> | string | number | boolean,
+  isStrict: boolean = false,
+) => {
   const newObj = {};
 
-  if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean') {
+  if (
+    typeof obj === 'string' ||
+    typeof obj === 'number' ||
+    typeof obj === 'boolean'
+  ) {
     return obj;
   }
 
@@ -47,13 +54,19 @@ export const pickNotEmpty = (obj: Record<string, any> | string | number | boolea
 
 enum E {}
 
-export function enumerate<T1 extends typeof E, T2 extends typeof E>(e1: T1, e2: T2) {
+export function enumerate<T1 extends typeof E, T2 extends typeof E>(
+  e1: T1,
+  e2: T2,
+) {
   return e1 as typeof e1 & typeof e2;
 }
 
 type FrontendUrlType = 'verify-email' | 'recover-password' | 'verify-account';
 
-export const generateFrontendUrl = (type: FrontendUrlType, query?: string): string => {
+export const generateFrontendUrl = (
+  type: FrontendUrlType,
+  query?: string,
+): string => {
   //TODO: need to correct frontend url
   let url = [environment.appUrl.frontendUrl];
 
@@ -78,7 +91,10 @@ export const generateFrontendUrl = (type: FrontendUrlType, query?: string): stri
 
 type AdminConsoleUrlType = 'verify-email' | 'recover-password' | 'login';
 
-export const generateAdminConsoleUrl = (type: AdminConsoleUrlType, query?: string): string => {
+export const generateAdminConsoleUrl = (
+  type: AdminConsoleUrlType,
+  query?: string,
+): string => {
   let url = [environment.appUrl.adminConsoleUrl];
 
   switch (type) {
@@ -159,7 +175,12 @@ export const generatePagination = (
   unread: number = 0,
 ) => {
   const baseUrl = `${environment.server.domainURL}/${path}`;
-  const link: string = generatePaginationLinks(baseUrl, page, perPage, Math.ceil(total / perPage));
+  const link: string = generatePaginationLinks(
+    baseUrl,
+    page,
+    perPage,
+    Math.ceil(total / perPage),
+  );
 
   if (link.length > 0) {
     req.res.set('Link', link);
@@ -218,11 +239,22 @@ export const getTokenFromHeader = (headers: any): string => {
 };
 
 export const randomNumberString = (numOfDigits: number): string => {
-  return (Math.floor(Math.random() * Math.pow(10, numOfDigits)) + Math.pow(10, numOfDigits)).toString().substring(1);
+  return (
+    Math.floor(Math.random() * Math.pow(10, numOfDigits)) +
+    Math.pow(10, numOfDigits)
+  )
+    .toString()
+    .substring(1);
 };
 
-export const padLeft = (number: number, numOfDigits: number, str?: string): string => {
-  return `${Array(numOfDigits - String(number).length + 1).join(str || '0')}${number}`;
+export const padLeft = (
+  number: number,
+  numOfDigits: number,
+  str?: string,
+): string => {
+  return `${Array(numOfDigits - String(number).length + 1).join(
+    str || '0',
+  )}${number}`;
 };
 
 export const getRandomIntInclusive = (min, max): number => {
@@ -235,6 +267,9 @@ export const getRandomIntInclusive = (min, max): number => {
 
 export const sequencePromise = (funcs: any) =>
   funcs.reduce(
-    (promise: any, func: any) => promise.then((result: any) => func().then(Array.prototype.concat.bind(result))),
+    (promise: any, func: any) =>
+      promise.then((result: any) =>
+        func().then(Array.prototype.concat.bind(result)),
+      ),
     Promise.resolve([]),
   );

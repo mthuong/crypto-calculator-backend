@@ -7,8 +7,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { CoinModule } from './coin/coin.module';
+import { PriceModule } from './price/price.module';
 
-type ImportModule = Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference;
+type ImportModule =
+  | Type<any>
+  | DynamicModule
+  | Promise<DynamicModule>
+  | ForwardReference;
 const serveStaticModule: ImportModule[] = environment.aws.isEnabled
   ? []
   : [
@@ -18,7 +24,13 @@ const serveStaticModule: ImportModule[] = environment.aws.isEnabled
     ];
 
 @Module({
-  imports: serveStaticModule.concat([AuthModule, UsersModule, TypeOrmModule.forRoot()]),
+  imports: serveStaticModule.concat([
+    AuthModule,
+    UsersModule,
+    CoinModule,
+    PriceModule,
+    TypeOrmModule.forRoot(),
+  ]),
   controllers: [AppController],
   providers: [AppService],
 })

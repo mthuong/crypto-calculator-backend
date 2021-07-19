@@ -16,11 +16,14 @@ const commonEnv = {
   aws: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    isEnabled: process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY,
+    isEnabled:
+      process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY,
     s3: {
       bucket: process.env.AWS_BUCKET || 'static-dev.RedPlate.com',
       cacheControl: 'max-age=31536000',
-      domain: process.env.AWS_BUCKET_DOMAIN || 'static-dev.RedPlate.com.s3-ap-southeast-1.amazonaws.com',
+      domain:
+        process.env.AWS_BUCKET_DOMAIN ||
+        'static-dev.RedPlate.com.s3-ap-southeast-1.amazonaws.com',
       presignedUrlExparation: 3600,
     },
   },
@@ -92,7 +95,11 @@ const commonEnv = {
 export const environment = (() => {
   if (process.env.PLATFORM === 'aws') {
     const additionalRateLimitOptions = (() => {
-      if (process.env.CACHE_DRIVER === 'redis' && process.env.CACHE_REDIS_HOST && process.env.CACHE_REDIS_PORT) {
+      if (
+        process.env.CACHE_DRIVER === 'redis' &&
+        process.env.CACHE_REDIS_HOST &&
+        process.env.CACHE_REDIS_PORT
+      ) {
         const redisClient = redis.createClient({
           host: process.env.CACHE_REDIS_HOST,
           port: process.env.CACHE_REDIS_PORT,
@@ -114,7 +121,9 @@ export const environment = (() => {
         // override
         email: {
           transport: {
-            host: process.env.AWS_SMTP_HOST || 'email-smtp.ap-south-1.amazonaws.com',
+            host:
+              process.env.AWS_SMTP_HOST ||
+              'email-smtp.ap-south-1.amazonaws.com',
             port: 465,
             secure: true,
             auth: {
@@ -130,7 +139,11 @@ export const environment = (() => {
 
         // override
         cache: (() => {
-          if (process.env.CACHE_DRIVER === 'redis' && process.env.CACHE_REDIS_HOST && process.env.CACHE_REDIS_PORT) {
+          if (
+            process.env.CACHE_DRIVER === 'redis' &&
+            process.env.CACHE_REDIS_HOST &&
+            process.env.CACHE_REDIS_PORT
+          ) {
             return {
               ttl: 60 * 5, //5 mins
               store: redisStore,

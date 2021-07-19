@@ -19,6 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "generate:resource": "nest g resource",
     "generate:module": "nest g module",
     "generate:controller": "nest g controller",
     "generate:service": "nest g service",

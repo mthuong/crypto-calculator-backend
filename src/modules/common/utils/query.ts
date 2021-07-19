@@ -5,7 +5,10 @@ import { format } from 'date-fns';
 import { validateOrReject } from 'class-validator';
 
 // ex: sort = createdAt|ASC
-export function orderByBuilder(sort: string, alias?: string): Record<string, 'ASC' | 'DESC'>[] {
+export function orderByBuilder(
+  sort: string,
+  alias?: string,
+): Record<string, 'ASC' | 'DESC'>[] {
   const sorts = sort.split(',');
 
   return sorts.map((sort) => {
@@ -13,7 +16,12 @@ export function orderByBuilder(sort: string, alias?: string): Record<string, 'AS
     const arrOrder = sort.split('|');
 
     if (arrOrder.length == 2) {
-      const field = arrOrder[0].indexOf('.') !== -1 ? arrOrder[0] : alias ? `${alias}.${arrOrder[0]}` : arrOrder[0];
+      const field =
+        arrOrder[0].indexOf('.') !== -1
+          ? arrOrder[0]
+          : alias
+          ? `${alias}.${arrOrder[0]}`
+          : arrOrder[0];
       const order = arrOrder[1];
 
       orderBy[safeKey(field)] = order;
@@ -45,7 +53,11 @@ export function inQueryBuilder(value: string) {
   return In(arrStatus);
 }
 
-export async function cleanTable(connection: Connection, tableName: string, isCheckId: boolean = true): Promise<void> {
+export async function cleanTable(
+  connection: Connection,
+  tableName: string,
+  isCheckId: boolean = true,
+): Promise<void> {
   const queryRunner = connection.createQueryRunner();
 
   await queryRunner.query(`DELETE FROM ${tableName}`);
@@ -57,7 +69,10 @@ export async function cleanTable(connection: Connection, tableName: string, isCh
 
 const tableForeignKeys: Record<string, any>[] = [];
 
-export async function dropForeignKeys(connection: Connection, tableNames: string[]): Promise<void> {
+export async function dropForeignKeys(
+  connection: Connection,
+  tableNames: string[],
+): Promise<void> {
   const queryRunner = connection.createQueryRunner();
 
   for (let i = 0; i < tableNames.length; i++) {
@@ -136,15 +151,23 @@ export function dateTimeQuery(
   };
 }
 
-export const countByConditions = async (conditions: ObjectLiteral, repo: Repository<any>) => {
+export const countByConditions = async (
+  conditions: ObjectLiteral,
+  repo: Repository<any>,
+) => {
   const queryBuilder = repo.createQueryBuilder();
 
-  const [{ count }] = await queryBuilder.select('COUNT(id) AS count').where(conditions).execute();
+  const [{ count }] = await queryBuilder
+    .select('COUNT(id) AS count')
+    .where(conditions)
+    .execute();
 
   return count;
 };
 
-export const validateClass = async (entity: ObjectLiteral): Promise<string[]> => {
+export const validateClass = async (
+  entity: ObjectLiteral,
+): Promise<string[]> => {
   return await validateOrReject(entity).catch((errs) => {
     if (!errs.length) {
       return [errs.message];
