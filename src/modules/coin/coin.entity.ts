@@ -48,6 +48,11 @@ export class Coin extends BaseEntity {
   prices?: Price[];
 
   @Expose()
+  @Index(`IDX_Coin_ICO_Date`)
+  @Column({ type: 'datetime' })
+  icoDate: Date;
+
+  @Expose()
   @Index(`IDX_Coin_Created_At`)
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -61,4 +66,10 @@ export class Coin extends BaseEntity {
   @Index('IDX_Coin_Deleted_At')
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt?: Date;
+
+  constructor(partial: Partial<Coin>) {
+    super();
+    this.entityName = Coin.entityName;
+    Object.assign(this, partial);
+  }
 }

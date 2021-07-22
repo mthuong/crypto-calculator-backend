@@ -1,14 +1,16 @@
 import { environment } from '@env/environment';
 import { DynamicModule, ForwardReference, Module, Type } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 import { CoinModule } from './coin/coin.module';
 import { PriceModule } from './price/price.module';
+import { UsersModule } from './users/users.module';
+import { PriceSchedulerModule } from './price-scheduler/price-scheduler.module';
 
 type ImportModule =
   | Type<any>
@@ -29,7 +31,9 @@ const serveStaticModule: ImportModule[] = environment.aws.isEnabled
     UsersModule,
     CoinModule,
     PriceModule,
+    PriceSchedulerModule,
     TypeOrmModule.forRoot(),
+    ScheduleModule.forRoot(),
   ]),
   controllers: [AppController],
   providers: [AppService],

@@ -15,6 +15,7 @@ services:
     networks:
       - default
       - crypto-network
+    restart: always
 
 volumes:
   mysql:
