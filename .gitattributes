@@ -1,2 +1,1 @@
-src/database/seeds/data/tokocrypto filter=lfs diff=lfs merge=lfs -text
-src/database/seeds/data/binancecoin filter=lfs diff=lfs merge=lfs -text
+src/database/seeds/data/**/*.json filter=lfs diff=lfs merge=lfs -text
