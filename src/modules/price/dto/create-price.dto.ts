@@ -1,1 +1,5 @@
-export class CreatePriceDto {}
+import { Price } from '../price.entity';
+
+export class CreatePriceDto {
+  price: Price;
+}

@@ -15,4 +15,10 @@ describe('PriceSchedulerService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  it.only('testGetPrice', () => {
+    const res = service.testGetPrice();
+
+    expect(res).toReturn();
+  });
 });

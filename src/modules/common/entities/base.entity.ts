@@ -1,7 +1,8 @@
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { PrimaryGeneratedColumn } from 'typeorm';
 
 export abstract class BaseEntity {
+  @Expose()
   @PrimaryGeneratedColumn()
   id: number;
 

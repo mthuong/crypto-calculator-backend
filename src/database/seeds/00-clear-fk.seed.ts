@@ -4,9 +4,7 @@ import { dropForeignKeys } from '@modules/common/utils/query';
 
 export default class ClearForeignKeys implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
-    const tableNames = [
-      // 'role'
-    ];
+    const tableNames = ['coin', 'price'];
 
     await dropForeignKeys(connection, tableNames);
   }

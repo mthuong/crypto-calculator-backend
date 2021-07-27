@@ -23,7 +23,7 @@ export class Price extends BaseEntity {
   coinId: number;
 
   @Expose()
-  @ApiProperty()
+  @ApiProperty({ type: () => Coin })
   @ManyToOne(() => Coin)
   @JoinColumn({ name: 'coin_id', referencedColumnName: 'id' })
   coin?: Coin;
@@ -34,247 +34,247 @@ export class Price extends BaseEntity {
   date: Date;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   aed: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   ars: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   aud: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   bch: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   bdt: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   bhd: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   bmd: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   bnb: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   brl: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   btc: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   cad: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   chf: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   clp: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   cny: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   czk: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   dkk: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   dot: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   eos: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   eth: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   eur: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   gbp: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   hkd: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   huf: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   idr: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   ils: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   inr: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   jpy: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   krw: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   kwd: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   lkr: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   ltc: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   mmk: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   mxn: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   myr: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   ngn: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   nok: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   nzd: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   php: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   pkr: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   pln: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   rub: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   sar: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   sek: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   sgd: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   thb: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   try: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   twd: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   uah: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   usd: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   vef: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   vnd: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   xag: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   xau: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   xdr: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   xlm: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   xrp: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   yfi: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   zar: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   bits: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   link: number;
 
   @Expose()
-  @Column()
+  @Column({ default: 0 })
   sats: number;
 
   @Expose()
@@ -292,9 +292,11 @@ export class Price extends BaseEntity {
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt?: Date;
 
-  constructor(partial: Partial<Price>) {
+  constructor(partial: Partial<Price>, coinId: number, date: Date) {
     super();
     this.entityName = Price.entityName;
+    this.coinId = coinId;
+    this.date = date;
     Object.assign(this, partial);
   }
 }

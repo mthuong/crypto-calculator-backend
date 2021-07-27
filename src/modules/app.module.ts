@@ -11,6 +11,9 @@ import { CoinModule } from './coin/coin.module';
 import { PriceModule } from './price/price.module';
 import { UsersModule } from './users/users.module';
 import { PriceSchedulerModule } from './price-scheduler/price-scheduler.module';
+import { SavingController } from './saving/saving.controller';
+import { SavingService } from './saving/saving.service';
+import { SavingModule } from './saving/saving.module';
 
 type ImportModule =
   | Type<any>
@@ -32,10 +35,11 @@ const serveStaticModule: ImportModule[] = environment.aws.isEnabled
     CoinModule,
     PriceModule,
     PriceSchedulerModule,
+    SavingModule,
     TypeOrmModule.forRoot(),
     ScheduleModule.forRoot(),
   ]),
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, SavingController],
+  providers: [AppService, SavingService],
 })
 export class AppModule {}

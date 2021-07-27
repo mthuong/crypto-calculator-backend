@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { PriceService } from './price.service';
 import { CreatePriceDto } from './dto/create-price.dto';
 import { UpdatePriceDto } from './dto/update-price.dto';
@@ -16,13 +8,14 @@ export class PriceController {
   constructor(private readonly priceService: PriceService) {}
 
   @Post()
-  create(@Body() createPriceDto: CreatePriceDto) {
+  async create(@Body() createPriceDto: CreatePriceDto) {
     return this.priceService.create(createPriceDto);
   }
 
   @Get()
   findAll() {
-    return this.priceService.findAll();
+    // return this.priceService.findAll();
+    return 'Error';
   }
 
   @Get(':id')

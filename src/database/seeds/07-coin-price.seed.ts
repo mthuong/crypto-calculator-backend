@@ -1,94 +1,68 @@
-/* eslint-disable max-depth */
 /* eslint-disable security/detect-non-literal-fs-filename */
-import { Coin } from '@modules/coin/coin.entity';
 import { cleanTable } from '@modules/common/utils/query';
-import { GetPriceResponse } from '@modules/price/dto/get-price.dto';
-import { Price } from '@modules/price/price.entity';
-import axios from 'axios';
-import { add, format, formatISO, isBefore } from 'date-fns';
 import { Connection } from 'typeorm';
 import { Factory, Seeder } from 'typeorm-seeding';
-import { coins } from './data';
-
-const prices: Price[] = [];
+import { Coin } from '@modules/coin/coin.entity';
+import { safeKey } from '@modules/common/utils';
+import { GetPriceResponse } from '@modules/price/dto/get-price.dto';
+import { Price } from '@modules/price/price.entity';
+// import fs from 'fs';
 
 export default class CreateCoinPrice implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     await cleanTable(connection, 'price');
 
-    await getHistoryData();
-    await connection.createQueryBuilder().insert().into('price').values(prices).execute();
-  }
-}
+    const coins = await connection.createQueryBuilder().select('coin').from(Coin, 'coin').getMany();
 
-async function getHistoryData() {
-  const fs = require('fs');
-
-  for (let index = 0; index < coins.length; index++) {
-    // eslint-disable-next-line security/detect-object-injection
-    const coin = coins[index];
-
-    if (coin.identify !== 'bitcoin') {
-      continue;
-    }
+    const fs = require('fs');
 
     let fileIndex = 1;
-    let fileName = createFileName(coin, fileIndex);
 
-    let fileDescriptor = fs.openSync(fileName, 'w');
+    for (let index = 0; index < coins.length; index++) {
+      const coin: Partial<Coin> = coins[safeKey(index)];
 
-    let users = [];
+      fileIndex = 1;
 
-    let icoDate = new Date(coin.icoDate);
-    const today = new Date();
+      switch (coin.identify) {
+        case 'tokocrypto':
+          {
+            let filePath = getFilePath(coin, fileIndex);
 
-    while (isBefore(icoDate, today)) {
-      try {
-        const response = await axios.get<GetPriceResponse>(
-          `https://api.coingecko.com/api/v3/coins/${coin.identify}/history?date=${format(icoDate, 'dd-MM-yyyy')}&localization=false`,
-        );
+            let isFileExist = fs.existsSync(filePath);
 
-        if (response.status === 200) {
-          response.data.date = icoDate;
-          users.push(response.data);
+            while (isFileExist) {
+              // Load the file and insert to database
+              const priceString = fs.readFileSync(filePath, 'utf-8');
 
-          if (users.length === 365) {
-            fs.appendFileSync(fileName, JSON.stringify(users), 'utf-8');
-            fs.closeSync(fileDescriptor);
-            fileIndex++;
+              const prices: GetPriceResponse[] = JSON.parse(priceString);
 
-            fileName = createFileName(coin, fileIndex);
+              const data: Price[] = [];
 
-            fileDescriptor = fs.openSync(fileName, 'w');
+              for (let index = 0; index < prices.length; index++) {
+                const item = prices[safeKey(index)];
 
-            users = [];
+                const price = new Price(item.market_data.current_price, coin.id, item.date);
+
+                data.push(price);
+              }
+
+              await connection.createQueryBuilder().insert().into('price').values(data).execute();
+
+              fileIndex++;
+              filePath = getFilePath(coin, fileIndex);
+              isFileExist = fs.existsSync(filePath);
+            }
           }
-        }
-      } catch (error) {
-        console.log(error);
-        await delay(3 * 60 * 1000);
-        continue;
+
+          break;
+
+        default:
+          break;
       }
-
-      await delay(900);
-
-      icoDate = add(icoDate, { days: 1 });
-
-      console.log(`\n${formatISO(new Date())} - ${formatISO(icoDate)}`);
-    }
-
-    if (users.length > 0) {
-      fs.appendFileSync(fileName, JSON.stringify(users), 'utf-8');
-
-      fs.closeSync(fileDescriptor);
     }
   }
 }
 
-async function delay(milliseconds = 300) {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-}
-
-function createFileName(coin: Coin, fileIndex: number): string {
+function getFilePath(coin: Partial<Coin>, fileIndex: number): string {
   return `./src/database/seeds/data/${coin.identify}/${coin.identify}_${fileIndex}.json`;
 }

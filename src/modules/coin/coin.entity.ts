@@ -38,16 +38,18 @@ export class Coin extends BaseEntity {
   name: string;
 
   @Expose()
+  @ApiProperty()
   @Column({ nullable: true })
   @IsOptional()
   image: string;
 
   @Expose()
-  @ApiProperty()
+  @ApiProperty({ type: () => Price })
   @OneToMany(() => Price, (price) => price.coin)
   prices?: Price[];
 
   @Expose()
+  @ApiProperty({ type: () => Date })
   @Index(`IDX_Coin_ICO_Date`)
   @Column({ type: 'datetime' })
   icoDate: Date;

@@ -1,3 +1,6 @@
+import { QueryParamsBaseDto } from "@modules/common/dto/query-params-base.dto";
+import { PartialType } from "@nestjs/swagger";
+
 export interface GetPriceResponse {
   id: string;
   symbol: string;
@@ -78,4 +81,17 @@ export interface CurrentPrice {
   bits: number;
   link: number;
   sats: number;
+}
+
+export class GetPriceQuery extends PartialType(QueryParamsBaseDto) {
+  coinId: string;
+
+  fromDate: Date;
+
+  toDate: Date;
+
+  constructor(partial: Partial<GetPriceQuery>) {
+    super();
+    Object.assign(this, partial);
+  }
 }
