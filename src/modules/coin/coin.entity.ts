@@ -3,15 +3,7 @@ import { Price } from '@modules/price/price.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 import { IsOptional, MaxLength } from 'class-validator';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  Index,
-  OneToMany,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, OneToMany, UpdateDateColumn } from 'typeorm';
 
 @Entity('coin')
 export class Coin extends BaseEntity {

@@ -17,6 +17,8 @@ export class CoinService {
   }
 
   create(createCoinDto: CreateCoinDto) {
+    createCoinDto;
+
     return 'This action adds a new coin';
   }
 

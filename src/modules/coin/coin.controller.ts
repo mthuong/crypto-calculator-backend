@@ -1,8 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CoinService } from './coin.service';
-import { CreateCoinDto } from './dto/create-coin.dto';
-import { UpdateCoinDto } from './dto/update-coin.dto';
 
 @ApiTags('coin')
 @UseInterceptors(ClassSerializerInterceptor)

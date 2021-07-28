@@ -17,9 +17,8 @@ export class SavingService {
       toDate: new Date(),
     };
 
-    const [prices, total] = await this.priceService.findAll(query, manager);
+    const [prices] = await this.priceService.findAll(query, manager);
 
     return prices;
   }
-
 }

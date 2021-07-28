@@ -14,7 +14,10 @@ export class CalculateSavingDto {
     required: false,
     description: 'Frequency to calculate your saving',
   })
-  @IsEnum(Frequency, { each: true, message: 'frequency $value is not allowed.' })
+  @IsEnum(Frequency, {
+    each: true,
+    message: 'frequency $value is not allowed.',
+  })
   frequency: Frequency;
 
   @ApiProperty()

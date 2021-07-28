@@ -1,5 +1,5 @@
-import { QueryParamsBaseDto } from "@modules/common/dto/query-params-base.dto";
-import { PartialType } from "@nestjs/swagger";
+import { QueryParamsBaseDto } from '@modules/common/dto/query-params-base.dto';
+import { PartialType } from '@nestjs/swagger';
 
 export interface GetPriceResponse {
   id: string;

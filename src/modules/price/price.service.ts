@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AxiosResponse } from 'axios';
 import { format } from 'date-fns';
 import { firstValueFrom, Observable } from 'rxjs';
-import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { CreatePriceDto } from './dto/create-price.dto';
 import { GetPriceQuery, GetPriceResponse } from './dto/get-price.dto';
 import { UpdatePriceDto } from './dto/update-price.dto';
@@ -15,7 +15,11 @@ const alias = 'price';
 
 @Injectable()
 export class PriceService {
-  constructor(private httpService: HttpService, @InjectRepository(Price) private readonly priceRepository: Repository<Price>) {}
+  constructor(
+    private httpService: HttpService,
+    @InjectRepository(Price)
+    private readonly priceRepository: Repository<Price>,
+  ) {}
 
   getRepository(manager?: EntityManager): Repository<Price> {
     return manager ? manager.getRepository(Price) : this.priceRepository;
@@ -27,11 +31,6 @@ export class PriceService {
     return repo.save(createPriceDto.price);
   }
 
-  /**
-   * Find price from Date to today
-   * @param fromDate from date to get price
-   * @returns list of price
-   */
   async findAll(query: GetPriceQuery, manager: EntityManager) {
     const repo = this.getRepository(manager);
     const [queryArr, params] = this.getSearchQueryBuilder(query, repo);
@@ -102,7 +101,7 @@ export class PriceService {
     }
 
     if (query.fromDate) {
-      const { dateQuery, dateParam } = dateTimeQuery(repo, new Date(query.toDate), `${alias}.date`, ':fromDate', '>=');
+      const { dateQuery, dateParam } = dateTimeQuery(repo, new Date(query.fromDate), `${alias}.date`, ':fromDate', '>=');
 
       whereClause.push(dateQuery);
       params.fromDate = dateParam;

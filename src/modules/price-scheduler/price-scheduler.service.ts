@@ -27,6 +27,10 @@ export class PriceSchedulerService {
     const [coins] = await this.coinService.findAll();
 
     for (const coin of coins) {
+      if (coin.identify !== 'tokocrypto') {
+        continue;
+      }
+
       const lastDate = await this.priceService.findLastDate();
 
       if (lastDate) {
@@ -54,5 +58,7 @@ export class PriceSchedulerService {
         }
       }
     }
+
+    return { message: 'sync finished' };
   }
 }

@@ -15,11 +15,7 @@ import { SavingController } from './saving/saving.controller';
 import { SavingService } from './saving/saving.service';
 import { SavingModule } from './saving/saving.module';
 
-type ImportModule =
-  | Type<any>
-  | DynamicModule
-  | Promise<DynamicModule>
-  | ForwardReference;
+type ImportModule = Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference;
 const serveStaticModule: ImportModule[] = environment.aws.isEnabled
   ? []
   : [

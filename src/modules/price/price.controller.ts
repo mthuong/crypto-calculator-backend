@@ -2,10 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PriceService } from './price.service';
 import { CreatePriceDto } from './dto/create-price.dto';
 import { UpdatePriceDto } from './dto/update-price.dto';
+import { PriceSchedulerService } from '@modules/price-scheduler/price-scheduler.service';
 
 @Controller('price')
 export class PriceController {
-  constructor(private readonly priceService: PriceService) {}
+  constructor(private readonly priceService: PriceService, private readonly priceSchedulerService: PriceSchedulerService) {}
 
   @Post()
   async create(@Body() createPriceDto: CreatePriceDto) {
@@ -16,6 +17,15 @@ export class PriceController {
   findAll() {
     // return this.priceService.findAll();
     return 'Error';
+  }
+
+  @Get('/sync')
+  async sync() {
+    if (process.env.NODE_ENV == 'development') {
+      return this.priceSchedulerService.getNewPrice();
+    }
+
+    return { message: 'go away please' };
   }
 
   @Get(':id')
